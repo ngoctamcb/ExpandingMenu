@@ -20,7 +20,7 @@ open class ExpandingMenuItem: UIView {
                     titleButton.setTitle(title, for: UIControlState())
                     #endif
                 } else {
-                    self.titleButton = self.createTitleButton(title, titleColor: self.titleColor)
+                    self.titleButton = self.createTitleButton(title, titleColor: self.titleColor, titleFont: self.titleFont)
                 }
                 self.titleButton?.sizeToFit()
             } else {
@@ -62,7 +62,7 @@ open class ExpandingMenuItem: UIView {
     fileprivate var tappedAction: (() -> Void)?
     
     // MARK: - Initializer
-    public init(size: CGSize?, title: String? = nil, titleColor: UIColor? = nil, image: UIImage, highlightedImage: UIImage?, backgroundImage: UIImage?, backgroundHighlightedImage: UIImage?, itemTapped: (() -> Void)?) {
+    public init(size: CGSize?, title: String? = nil, titleColor: UIColor? = nil, titleFont: UIFont? = nil, image: UIImage, highlightedImage: UIImage?, backgroundImage: UIImage?, backgroundHighlightedImage: UIImage?, itemTapped: (() -> Void)?) {
         
         // Initialize properties
         //
@@ -120,7 +120,7 @@ open class ExpandingMenuItem: UIView {
         // Configure title button
         //
         if let title = title {
-            self.titleButton = self.createTitleButton(title, titleColor: titleColor)
+            self.titleButton = self.createTitleButton(title, titleColor: titleColor, titleFont: titleFont)
         }
     }
     
@@ -128,8 +128,8 @@ open class ExpandingMenuItem: UIView {
         self.init(size: nil, title: nil, image: image, highlightedImage: highlightedImage, backgroundImage: backgroundImage, backgroundHighlightedImage: backgroundHighlightedImage, itemTapped: itemTapped)
     }
     
-    @objc public convenience init(title: String, titleColor: UIColor? = nil, image: UIImage, highlightedImage: UIImage, backgroundImage: UIImage?, backgroundHighlightedImage: UIImage?, itemTapped: (() -> Void)?) {
-        self.init(size: nil, title: title, titleColor: titleColor, image: image, highlightedImage: highlightedImage, backgroundImage: backgroundImage, backgroundHighlightedImage: backgroundHighlightedImage, itemTapped: itemTapped)
+    @objc public convenience init(title: String, titleColor: UIColor? = nil, titleFont: UIFont? = nil, image: UIImage, highlightedImage: UIImage, backgroundImage: UIImage?, backgroundHighlightedImage: UIImage?, itemTapped: (() -> Void)?) {
+        self.init(size: nil, title: title, titleColor: titleColor, titleFont: titleFont, image: image, highlightedImage: highlightedImage, backgroundImage: backgroundImage, backgroundHighlightedImage: backgroundHighlightedImage, itemTapped: itemTapped)
     }
     
     @objc public convenience init(size: CGSize, image: UIImage, highlightedImage: UIImage, backgroundImage: UIImage?, backgroundHighlightedImage: UIImage?, itemTapped: (() -> Void)?) {
@@ -143,7 +143,7 @@ open class ExpandingMenuItem: UIView {
     }
     
     // MARK: - Title Button
-    fileprivate func createTitleButton(_ title: String, titleColor: UIColor? = nil) -> UIButton {
+    fileprivate func createTitleButton(_ title: String, titleColor: UIColor? = nil, titleFont: UIFont? = nil) -> UIButton {
         let button = UIButton()
         #if swift(>=4.2)
         button.setTitle(title, for: UIControl.State())
@@ -154,6 +154,7 @@ open class ExpandingMenuItem: UIView {
         #endif
         button.sizeToFit()
         
+        button.titleLabel?.font = titleFont
         button.addTarget(self, action: #selector(tapped), for: .touchUpInside)
         
         return button
