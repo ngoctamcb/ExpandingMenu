@@ -152,9 +152,11 @@ open class ExpandingMenuItem: UIView {
         button.setTitle(title, for: UIControlState())
         button.setTitleColor(titleColor, for: UIControlState())
         #endif
-        button.sizeToFit()
         
         button.titleLabel?.font = titleFont
+        
+        button.sizeToFit()
+        
         button.addTarget(self, action: #selector(tapped), for: .touchUpInside)
         
         return button
