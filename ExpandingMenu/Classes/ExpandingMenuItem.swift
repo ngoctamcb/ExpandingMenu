@@ -31,6 +31,12 @@ open class ExpandingMenuItem: UIView {
     
     @objc open var titleMargin: CGFloat = 5.0
     
+    @objc open var titleFont: UIFont? {
+        
+        get { return self.titleButton?.titleLabel?.font }
+        set { self.titleButton?.titleLabel?.font = newValue }
+    }
+    
     #if swift(>=4.2)
     @objc open var titleColor: UIColor? {
         get { return self.titleButton?.titleColor(for: UIControl.State()) }
